@@ -131,8 +131,8 @@ void printAllPlayers(PlayerNode *headPlayer){
 						current->player.nickname);
 		printf("Edad: %d\n",
 						current->player.age);
-		printf("Puntos: %d\n",
-						current->player.points);
+		printf("Victorias: %d\n",
+						current->player.victories);
         current = current->next;
     }
 }
