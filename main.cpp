@@ -62,8 +62,8 @@ Player createPlayer(){
 		if(newPlayer.age<=0){
 			printf("Edad invalida, intenta nuevamente.\n");
 		}
-	}while(newPlayer.age<=0)
-	newPlayer.points = 0;
+	}while(newPlayer.age<=0);
+	newPlayer.victories = 0;
 	
 	cleanBuffer();
 	return newPlayer;
@@ -121,7 +121,7 @@ void savePlayersToFile(PlayerNode *headPlayer) {
 			current->player.name,
 			current->player.nickname,
 			current->player.age,
-			current->player.points);
+			current->player.victories);
         current = current->next;
     }
 
