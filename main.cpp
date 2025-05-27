@@ -57,6 +57,125 @@ int main(){
 /*
 ......... PLAYER FUNCTIONS ........
 */
+Character createCharacter(CharacterNode* head) {
+    Character newChar;
+    newChar.id = ++lastCharacterID;
+
+    char name[MAX_LEN_STR];
+    int exists;
+    do {
+        exists = 0;
+        printf("\nDame el nombre del personaje: ");
+        fgets(name, MAX_LEN_STR, stdin);
+        name[strcspn(name, "\n")] = 0;
+
+        CharacterNode* current = head;
+        while (current != NULL) {
+            if (strcmp(current->character.name, name) == 0) {
+                exists = 1;
+                printf("Ese nombre ya existe. Intenta otro.\n");
+                break;
+            }
+            current = current->next;
+        }
+    } while (exists);
+
+    strcpy(newChar.name, name);
+    newChar.victories = 0;
+
+    return newChar;
+}
+CharacterNode* createCharacterNode(Character character) {
+    CharacterNode* newNode = (CharacterNode*)malloc(sizeof(CharacterNode));
+    newNode->character = character;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+void addCharacter(CharacterNode** head) {
+    Character newChar = createCharacter(*head);
+    CharacterNode* newNode = createCharacterNode(newChar);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    CharacterNode* current = *head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    current->next = newNode;
+    newNode->prev = current;
+}
+void printAllCharacters(CharacterNode* head) {
+    CharacterNode* current = head;
+    while (current != NULL) {
+        printf("\nPERSONAJE:\n");
+        printf("Id: %d\n", current->character.id);
+        printf("Nombre: %s\n", current->character.name);
+        printf("Victorias: %d\n", current->character.victories);
+        current = current->next;
+    }
+}
+void saveCharactersToFile(CharacterNode* head) {
+    FILE* file = fopen("characters.txt", "w");
+    if (file == NULL) {
+        perror("No se pudo abrir archivo para personajes");
+        return;
+    }
+
+    CharacterNode* current = head;
+    while (current != NULL) {
+        fprintf(file, "%d|%s|%d\n",
+                current->character.id,
+                current->character.name,
+                current->character.victories);
+        current = current->next;
+    }
+
+    fclose(file);
+    printf("Personajes guardados en 'characters.txt'\n");
+}
+void loadCharactersFromFile(CharacterNode** head) {
+    FILE* file = fopen("characters.txt", "r");
+    if (file == NULL) {
+        printf("Archivo de personajes no encontrado.\n");
+        return;
+    }
+
+    Character tmpChar;
+    while (fscanf(file, "%d|%49[^|]|%d\n",
+                  &tmpChar.id, tmpChar.name, &tmpChar.victories) == 3) {
+        if (tmpChar.id > lastCharacterID)
+            lastCharacterID = tmpChar.id;
+        CharacterNode* newNode = createCharacterNode(tmpChar);
+
+        if (*head == NULL) {
+            *head = newNode;
+        } else {
+            CharacterNode* current = *head;
+            while (current->next != NULL)
+                current = current->next;
+            current->next = newNode;
+            newNode->prev = current;
+        }
+    }
+
+    fclose(file);
+    printf("Personajes cargados desde 'characters.txt'\n");
+}
+void freeCharacters(CharacterNode* head) {
+    CharacterNode* tmp;
+    while (head != NULL) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+    printf("Memoria de personajes liberada.\n");
+}
+
 
 // Variable global para autoincrementar ID
 int lastPlayerID = 0;
