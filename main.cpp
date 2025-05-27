@@ -9,7 +9,7 @@ typedef struct{
 	char name[MAX_LEN_STR];
 	char nickname[MAX_LEN_STR];
 	int age;
-	int points;
+	int victories;
 }Player;
 
 typedef struct PlayerNode{
