@@ -43,17 +43,26 @@ int main(){
 /*
 ......... PLAYER FUNCTIONS ........
 */
+
+// Variable global para autoincrementar ID
+int lastPlayerID = 0;
+
 Player createPlayer(){
 	Player newPlayer;
-	newPlayer.id = 0; // change this line
+	newPlayer.id = ++lastPlayerID;
 	
 	printf("\nDame el nombre del jugador:");
 	fgets(newPlayer.name, MAX_LEN_STR, stdin);
 	newPlayer.name[strcspn(newPlayer.name, "\n")] = 0;
 	printf("\nDame el nickname sin espacios: ");
 	scanf("%s", newPlayer.nickname);
-	printf("\nDame edad: ");
-	scanf("%d", &newPlayer.age);
+	do{
+		printf("\nDame edad: ");
+		scanf("%d", &newPlayer.age);
+		if(newPlayer.age<=0){
+			printf("Edad invalida, intenta nuevamente.\n");
+		}
+	}while(newPlayer.age<=0)
 	newPlayer.points = 0;
 	
 	cleanBuffer();
