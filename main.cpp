@@ -20,6 +20,7 @@ typedef struct PlayerNode{
 
 //Prototypes
 //General
+void freePlayers(PlayerNode*);
 void cleanBuffer();
 //Player
 Player createPlayer();
@@ -37,6 +38,7 @@ int main(){
 	addPlayer(&headPlayer);
 	savePlayersToFile(headPlayer);
 	printAllPlayers(headPlayer);
+	freePlayers(headPlayer);
 	return 0;
 }
 
@@ -93,6 +95,19 @@ void addPlayer(PlayerNode **headPlayer){
     }
     lastNode->next = newPlayerNode;
     newPlayerNode->prev = lastNode;
+}
+
+/*
+Liberar memoria
+*/
+void freePlayers(PlayerNode* head) {
+    PlayerNode* tmp;
+    while (head != NULL) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+    printf("\nMemoria liberada correctamente.\n");
 }
 
 /*
