@@ -18,6 +18,18 @@ typedef struct PlayerNode{
 	PlayerNode *prev;
 }PlayerNode;
 
+typedef struct {
+	int id;
+	char name[MAX_LEN_STR];
+	int victories;
+} Character;
+
+typedef struct CharacterNode {
+	Character character;
+	struct CharacterNode* next;
+	struct CharacterNode* prev;
+} CharacterNode;
+
 //Prototypes
 //General
 void freePlayers(PlayerNode*);
