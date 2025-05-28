@@ -165,6 +165,15 @@ void loadCharactersFromFile(CharacterNode** head) {
     fclose(file);
     printf("Personajes cargados desde 'characters.txt'\n");
 }
+void freeCharacters(CharacterNode* head) {
+    CharacterNode* tmp;
+    while (head != NULL) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+    printf("Memoria de personajes liberada.\n");
+}
 
 
 /*
