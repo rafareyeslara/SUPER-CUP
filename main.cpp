@@ -137,6 +137,34 @@ void saveCharactersToFile(CharacterNode* head) {
     fclose(file);
     printf("Personajes guardados en 'characters.txt'\n");
 }
+void loadCharactersFromFile(CharacterNode** head) {
+    FILE* file = fopen("characters.txt", "r");
+    if (file == NULL) {
+        printf("Archivo de personajes no encontrado.\n");
+        return;
+    }
+
+    Character tmpChar;
+    while (fscanf(file, "%d|%49[^|]|%d\n",
+                  &tmpChar.id, tmpChar.name, &tmpChar.victories) == 3) {
+        if (tmpChar.id > lastCharacterID)
+            lastCharacterID = tmpChar.id;
+        CharacterNode* newNode = createCharacterNode(tmpChar);
+
+        if (*head == NULL) {
+            *head = newNode;
+        } else {
+            CharacterNode* current = *head;
+            while (current->next != NULL)
+                current = current->next;
+            current->next = newNode;
+            newNode->prev = current;
+        }
+    }
+
+    fclose(file);
+    printf("Personajes cargados desde 'characters.txt'\n");
+}
 
 
 /*
