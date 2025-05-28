@@ -84,6 +84,14 @@ Character createCharacter(CharacterNode* head) {
 
     return newChar;
 }
+CharacterNode* createCharacterNode(Character character) {
+    CharacterNode* newNode = (CharacterNode*)malloc(sizeof(CharacterNode));
+    newNode->character = character;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+
 
 /*
 ......... PLAYER FUNCTIONS ........
