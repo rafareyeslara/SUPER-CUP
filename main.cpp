@@ -53,10 +53,42 @@ int main(){
 	freePlayers(headPlayer);
 	return 0;
 }
+/*
+Character management
+
+*/
+Character createCharacter(CharacterNode* head) {
+    Character newChar;
+    newChar.id = ++lastCharacterID;
+	char name[MAX_LEN_STR];
+    int exists;
+    do {
+        exists = 0;
+        printf("\nDame el nombre del personaje: ");
+        fgets(name, MAX_LEN_STR, stdin);
+        name[strcspn(name, "\n")] = 0;
+
+        CharacterNode* current = head;
+        while (current != NULL) {
+            if (strcmp(current->character.name, name) == 0) {
+                exists = 1;
+                printf("Ese nombre ya existe. Intenta otro.\n");
+                break;
+            }
+            current = current->next;
+        }
+    } while (exists);
+
+    strcpy(newChar.name, name);
+    newChar.victories = 0;
+
+    return newChar;
+}
 
 /*
 ......... PLAYER FUNCTIONS ........
 */
+
 
 
 // Variable global para autoincrementar ID
