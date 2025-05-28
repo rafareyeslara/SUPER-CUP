@@ -53,12 +53,21 @@ CharacterNode* getRandomAvailableCharacter(CharacterNode*, char[], char[]);
 */
 int main(){
 	PlayerNode *headPlayer = NULL;
+	CharacterNode *headCharacter = NULL;
+	MatchNode *matchList = NULL;
 	addPlayer(&headPlayer);
 	addPlayer(&headPlayer);
 	addPlayer(&headPlayer);
 	savePlayersToFile(headPlayer);
 	printAllPlayers(headPlayer);
+
+	loadCharactersFromFile(&headCharacter);
+	registerMatch(headPlayer, headCharacter, &matchList);
+	saveMatchesToFile(matchList);
+	printAllMatches(matchList);
+	
 	freePlayers(headPlayer);
+	freeCharacters(headCharacter);
 	return 0;
 }
 
