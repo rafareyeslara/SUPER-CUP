@@ -66,6 +66,8 @@ CharacterNode* getRandomAvailableCharacter(CharacterNode*, char[], char[]);
 void saveCharactersToFile(CharacterNode*);
 void loadCharactersFromFile(CharacterNode**);
 void freeCharacters(CharacterNode*);
+Character createCharacter(CharacterNode* head);
+void addCharacter(CharacterNode** head);
 /*
 ......... MAIN ....................
 */
