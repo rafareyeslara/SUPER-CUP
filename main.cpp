@@ -118,6 +118,25 @@ void printAllCharacters(CharacterNode* head) {
         current = current->next;
     }
 }
+void saveCharactersToFile(CharacterNode* head) {
+    FILE* file = fopen("characters.txt", "w");
+    if (file == NULL) {
+        perror("No se pudo abrir archivo para personajes");
+        return;
+    }
+
+    CharacterNode* current = head;
+    while (current != NULL) {
+        fprintf(file, "%d|%s|%d\n",
+                current->character.id,
+                current->character.name,
+                current->character.victories);
+        current = current->next;
+    }
+
+    fclose(file);
+    printf("Personajes guardados en 'characters.txt'\n");
+}
 
 
 /*
