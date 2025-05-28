@@ -40,6 +40,14 @@ PlayerNode* createPlayerNode(Player);
 void addPlayer(PlayerNode**);
 void savePlayersToFile(PlayerNode*);
 void printAllPlayers(PlayerNode*);
+//Game
+void registerMatch(PlayerNode*, CharacterNode*, struct MatchNode**);
+struct MatchNode* createMatchNode(struct Match);
+void saveMatchesToFile(struct MatchNode*);
+void printAllMatches(struct MatchNode*);
+PlayerNode* findPlayerByID(PlayerNode*, int);
+CharacterNode* findCharacterByName(CharacterNode*, const char*);
+CharacterNode* getRandomAvailableCharacter(CharacterNode*, char[], char[]);
 /*
 ......... MAIN ....................
 */
