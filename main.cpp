@@ -69,26 +69,72 @@ void freeCharacters(CharacterNode*);
 /*
 ......... MAIN ....................
 */
-int main(){
-	PlayerNode *headPlayer = NULL;
-	CharacterNode *headCharacter = NULL;
-	MatchNode *matchList = NULL;
-	addPlayer(&headPlayer);
-	addPlayer(&headPlayer);
-	addPlayer(&headPlayer);
-	savePlayersToFile(headPlayer);
-	printAllPlayers(headPlayer);
+int main() {
+    PlayerNode *headPlayer = NULL;
+    CharacterNode *headCharacter = NULL;
+    MatchNode *matchList = NULL;
 
-	loadCharactersFromFile(&headCharacter);
-	registerMatch(headPlayer, headCharacter, &matchList);
-	saveMatchesToFile(matchList);
-	printAllMatches(matchList);
-	
-	freePlayers(headPlayer);
-	freeCharacters(headCharacter);
-	return 0;
+    // Crear jugadores
+    addPlayer(&headPlayer);
+    addPlayer(&headPlayer);
+    addPlayer(&headPlayer);
+
+    savePlayersToFile(headPlayer);
+    printAllPlayers(headPlayer);
+
+    // Cargar personajes desde archivo
+    loadCharactersFromFile(&headCharacter);
+
+    // Si no hay personajes, se deben agregar
+    if (headCharacter == NULL) {
+        printf("\nNo se encontraron personajes en el archivo. Debes agregarlos.\n");
+        int numChars;
+        printf("¿Cuántos personajes deseas agregar? ");
+        scanf("%d", &numChars);
+        cleanBuffer();
+        for (int i = 0; i < numChars; i++) {
+            addCharacter(&headCharacter);
+        }
+    }
+
+    // Si hay menos personajes que jugadores, agregar más
+    int playerCount = 0;
+    PlayerNode* tempPlayer = headPlayer;
+    while (tempPlayer != NULL) {
+        playerCount++;
+        tempPlayer = tempPlayer->next;
+    }
+
+    int charCount = 0;
+    CharacterNode* tempChar = headCharacter;
+    while (tempChar != NULL) {
+        charCount++;
+        tempChar = tempChar->next;
+    }
+
+    if (charCount < playerCount) {
+        printf("\nHay más jugadores (%d) que personajes (%d). Agrega al menos %d personaje(s) más.\n",
+               playerCount, charCount, playerCount - charCount);
+        int extraChars = playerCount - charCount;
+        for (int i = 0; i < extraChars; i++) {
+            addCharacter(&headCharacter);
+        }
+    }
+
+    // Registrar una partida
+    registerMatch(headPlayer, headCharacter, &matchList);
+
+    // Guardar resultados
+    saveMatchesToFile(matchList);
+    saveCharactersToFile(headCharacter);
+    printAllMatches(matchList);
+
+    // Liberar memoria
+    freePlayers(headPlayer);
+    freeCharacters(headCharacter);
+
+    return 0;
 }
-
 /*
 ......... PLAYER FUNCTIONS ........
 */
