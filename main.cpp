@@ -64,6 +64,7 @@ PlayerNode* findPlayerByID(PlayerNode*, int);
 CharacterNode* findCharacterByName(CharacterNode*, const char*);
 CharacterNode* getRandomAvailableCharacter(CharacterNode*, char[], char[]);
 void saveCharactersToFile(CharacterNode*);
+void loadCharactersFromFile(CharacterNode**);
 void freeCharacters(CharacterNode*);
 /*
 ......... MAIN ....................
