@@ -91,6 +91,23 @@ CharacterNode* createCharacterNode(Character character) {
     newNode->prev = NULL;
     return newNode;
 }
+void addCharacter(CharacterNode** head) {
+    Character newChar = createCharacter(*head);
+    CharacterNode* newNode = createCharacterNode(newChar);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    CharacterNode* current = *head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    current->next = newNode;
+    newNode->prev = current;
+}
 
 
 /*
