@@ -108,6 +108,16 @@ void addCharacter(CharacterNode** head) {
     current->next = newNode;
     newNode->prev = current;
 }
+void printAllCharacters(CharacterNode* head) {
+    CharacterNode* current = head;
+    while (current != NULL) {
+        printf("\nPERSONAJE:\n");
+        printf("Id: %d\n", current->character.id);
+        printf("Nombre: %s\n", current->character.name);
+        printf("Victorias: %d\n", current->character.victories);
+        current = current->next;
+    }
+}
 
 
 /*
