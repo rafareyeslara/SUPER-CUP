@@ -53,15 +53,15 @@ int main(){
 	freePlayers(headPlayer);
 	return 0;
 }
-/*
-Character management
 
+/*
+......... PLAYER FUNCTIONS ........
 */
-int lastCharacterID = 0;
 Character createCharacter(CharacterNode* head) {
     Character newChar;
     newChar.id = ++lastCharacterID;
-	char name[MAX_LEN_STR];
+
+    char name[MAX_LEN_STR];
     int exists;
     do {
         exists = 0;
@@ -175,12 +175,6 @@ void freeCharacters(CharacterNode* head) {
     }
     printf("Memoria de personajes liberada.\n");
 }
-
-
-/*
-......... PLAYER FUNCTIONS ........
-*/
-
 
 
 // Variable global para autoincrementar ID
