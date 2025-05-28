@@ -57,6 +57,7 @@ int main(){
 Character management
 
 */
+int lastCharacterID = 0;
 Character createCharacter(CharacterNode* head) {
     Character newChar;
     newChar.id = ++lastCharacterID;
