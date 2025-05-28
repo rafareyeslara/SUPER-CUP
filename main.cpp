@@ -30,6 +30,20 @@ typedef struct CharacterNode {
 	struct CharacterNode* prev;
 } CharacterNode;
 
+typedef struct {
+	int player1ID;
+	int player2ID;
+	char character1[MAX_LEN_STR];
+	char character2[MAX_LEN_STR];
+	int winnerID;
+} Match;
+
+typedef struct MatchNode {
+	Match match;
+	struct MatchNode* next;
+	struct MatchNode* prev;
+} MatchNode;
+
 //Prototypes
 //General
 void freePlayers(PlayerNode*);
